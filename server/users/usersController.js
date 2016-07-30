@@ -289,7 +289,7 @@ module.exports = {
        if(err){
         console.log("Something wrong when updating data!");
       }
-      console.log(doc)
+      //console.log(doc)
       res.json(doc);
     })
   },
@@ -297,6 +297,15 @@ module.exports = {
     findAllUser()
     .then(function(users){
       res.json(users);
+    });
+  },
+  getDescription:function(req,res,next){
+    var token = req.headers['x-access-token'];
+    var user = jwt.decode(token, 'secret');
+    findOneUser({username:user.username})
+    .then(function(user){
+      console.log(user.description,"description hereeeee");
+      res.json(user.description);
     });
   }
 };

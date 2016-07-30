@@ -1,16 +1,19 @@
 angular.module('iGrow.mygarden', [])
 .controller('GardenController', function ($window, $location, $scope, Plants) {
 	$scope.data = {}
-	
-	
-
 
 	Plants.getGarden()
 	.then(function(resp){
 		$scope.data.plants=resp;
 		window.user=$window.localStorage['com.username'];
 		$scope.username=$window.localStorage['com.username'];
-	})
+	});
+	//////getDescription function
+	Plants.getDesc()
+	.then(function(resp){
+		$scope.data.description=resp;
+	});
+	////////
 	$scope.addComment=function ( comment) {
 		Plants.addNewComment(comment,$scope.username,function (data) {	
 			Plants.getAllComment()
@@ -20,7 +23,6 @@ angular.module('iGrow.mygarden', [])
 			})
 
 		})	
-
 	}
 	Plants.getAllComment()
 		.then(function (resp) {

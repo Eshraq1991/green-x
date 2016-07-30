@@ -4,7 +4,16 @@ $scope.data = {}
 	///plants.getAllUsers
 	Plants.getFriends()
 			.then(function(resp){
-		//console.log(resp)
+				console.log(resp);
+				var user=$window.localStorage.getItem('com.username');
+					console.log(user);
+				for(var i=0;i<resp.length;i++){
+					
+					if(resp[i].username===user){
+						resp.splice(i,1);
+						break;
+					}
+				}
 		$scope.data.friends=resp;
 	});
 
@@ -18,12 +27,8 @@ $scope.data = {}
 		//console.log(id)
 		Plants.addFriend(id)
 		.then(function(resp){
-		//	console.log(resp);
-			//After plant is added to user's garden, show user's garden
-			//$location.path('/mygarden');
 			Plants.getFriends()
 			.then(function(resp){
-		//console.log(resp)
 		$scope.data.friends=resp;
 	});
 		})
@@ -31,8 +36,6 @@ $scope.data = {}
 	$scope.getFriendGarden=function(id){
 		Plants.getFriendGarden(id)
 		.then(function(resp){
-			console.log(resp)
-			
 		Plants.getGarden()
 		.then(function(resp){
 			$scope.data.gardens=resp;

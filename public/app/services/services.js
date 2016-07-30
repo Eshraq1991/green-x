@@ -84,7 +84,6 @@ angular.module('iGrow.services', [])
   };
 
   var editDescription = function(description){
-    console.log(description)
     return $http({
       method:'POST',
       url:'/api/users/description',
@@ -93,7 +92,16 @@ angular.module('iGrow.services', [])
     .then(function(resp){
       return resp.data.description;
     })
-  }
+  };
+  var getDesc=function(){
+     return $http({
+      method:'GET',
+      url:'/api/users/desc',
+     })
+     .then(function(resp){
+      return resp.data;
+     });
+  };
   //view plants in garden
     var getGarden = function(){
      return $http({
@@ -197,6 +205,7 @@ var getStoreInfo=function (store){
 //========================================================================================
 
   return {
+    getDesc:getDesc,
     getFriendGarden:getFriendGarden,
     getFriends:getFriends,
     addFriend:addFriend,
