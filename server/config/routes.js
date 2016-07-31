@@ -25,6 +25,11 @@ module.exports = function (app, express) {
   app.post('/api/users/addplant', usersController.addPlant);
   app.post('/api/users/signinstore',storeController.signin);
   app.post('/api/users/signupstore',storeController.signup);
+
+  //View user garden
+
+  /////////////////////////////////////////////////////
+  app.post('/api/stores/location' , storeController.addLocation);
   app.get('/api/users/stores',usersController.getStores);
   app.get('/api/users/store',storeController.getOneStore);
   app.get('/api/stores/:store',storeController.getInfoStore);

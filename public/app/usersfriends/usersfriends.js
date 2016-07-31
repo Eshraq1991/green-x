@@ -4,29 +4,19 @@ $scope.data = {}
 	///plants.getAllUsers
 	Plants.getFriends()
 			.then(function(resp){
-				console.log(resp);
-				var user=$window.localStorage.getItem('com.username');
-					console.log(user);
-				for(var i=0;i<resp.length;i++){
-					
-					if(resp[i].username===user){
-						resp.splice(i,1);
-						break;
-					}
-				}
 		$scope.data.friends=resp;
 	});
 
 	Plants.getAllUsers()
 	.then(function(resp){
-		for(var i=0;i<resp.length;i++){
-					
-					if(resp[i].username===user){
-						resp.splice(i,1);
-						break;
-					}
-				}
-		//console.log("show users in database",resp);
+		var user= $window.localStorage.getItem('com.username');
+               for(var i=0;i<resp.length;i++){
+                   
+                   if(resp[i].username===user){
+                       resp.splice(i,1);
+                       break;
+                   }
+               }
 		$scope.data.plants=resp;
 	})
 	//Add plant function
