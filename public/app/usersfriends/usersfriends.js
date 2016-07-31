@@ -19,6 +19,13 @@ $scope.data = {}
 
 	Plants.getAllUsers()
 	.then(function(resp){
+		for(var i=0;i<resp.length;i++){
+					
+					if(resp[i].username===user){
+						resp.splice(i,1);
+						break;
+					}
+				}
 		//console.log("show users in database",resp);
 		$scope.data.plants=resp;
 	})
@@ -33,13 +40,32 @@ $scope.data = {}
 	});
 		})
 	}
-	$scope.getFriendGarden=function(id){
-		Plants.getFriendGarden(id)
-		.then(function(resp){
-		Plants.getGarden()
-		.then(function(resp){
-			$scope.data.gardens=resp;
-			$location.path('/'+id)
-		})
-	})
-}});
+	$scope.getFriendGarden=function(user){
+      console.log(user);
+      Plants.selectUser(user)
+      .then(function (data){
+      	console.log(data,"user dataaaaa")
+        $location.path('/1/'+user);
+
+      })
+      .catch(function (error){
+        console.log(error);
+
+      })
+
+    
+
+
+	// 	Plants.getFriendGarden(user)
+	// 	.then(function(resp){
+	// 		console.log(resp)
+			
+	// 	Plants.getGarden()
+	// 	.then(function(resp){
+	// 		$scope.data.gardens=resp;
+	// 		$location.path('/'+user)
+	// 	})
+	// })
+}
+});
+

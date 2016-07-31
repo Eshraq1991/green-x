@@ -299,6 +299,7 @@ module.exports = {
       res.json(users);
     });
   },
+
   getDescription:function(req,res,next){
     var token = req.headers['x-access-token'];
     var user = jwt.decode(token, 'secret');
@@ -307,5 +308,29 @@ module.exports = {
       console.log(user.description,"description hereeeee");
       res.json(user.description);
     });
+},
+  getInfoGarden:function (req,res,next){
+    console.log(req.params);
+     var username=req.params.user;
+     console.log(username);
+     findOneUser({username:username})
+    .then(function(user){
+      if (!user) {
+          next(new Error('User does not exist'));
+           } else {
+            //pushin new plant to garden array and saving it
+        return user.garden
+        }
+    })
+      .then(function(garden){
+        findPlants({'_id': { $in: garden }})
+        .then(function(plants){
+          res.json(plants)
+        })
+        .fail(function(err){
+          res.send(204)
+        })
+      })
+      
   }
 };
